@@ -5,6 +5,7 @@ on:
   schedule:
     # 分 时 日 月 星期 (*每次都 ,分割字段多值 -定义范围 /指定间隔频率)
     - cron: '10 0 * * *' # 每日8:10，时间点执行任务，注意时区(UTC, 0+8)
+    - cron: '10 4 * * *' # 每日12:10，时间点执行任务，注意时区(UTC, 4+8)
 
   # 是否可在github操作选项卡手动运行
   workflow_dispatch:
@@ -13,7 +14,7 @@ on:
 jobs:
   build:
     # 任务运行器（切换可参考文档）
-    runs-on: ubuntu-latest
+    runs-on: windows-latest 
 
     # 步骤
     steps:
@@ -22,28 +23,21 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: main
-          token: ${{ secrets.PUSH_TOKEN }}  # 自定义的个人推送TOKEN
+          token: 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  # 自定义的个人推送TOKEN（自己生成的，有效期60天）
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-          pip install lxml
       - name: execute py script
         env:
-          FM_USERNAME: ${{ secrets.USERNAME }}
+          FM_USERNAME: Zhang047
         run: |
-          python script/ArticleSpider.py
-      - name: 列出所有文件
-        run: |
-          ls -l
+          python get_and_copy_ssr_ss_vmess.py
+      
       - name: Commit changes
         run: |
-          git config --local user.email "2652364582@qq.com"
-          git config --local user.name "bqs"
+          git config --local user.email "2318134115@qq.com"
+          git config --local user.name "Zhang047"
           git add .
           git commit -m "Add changes" || echo "No changes to commit"
           git push origin main
