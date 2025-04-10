@@ -40,6 +40,7 @@ jobs:
       
       - name: Commit changes
         run: |
+          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git config --local user.email "2318134115@qq.com"
           git config --local user.name "Zhang047"
           git add 666.txt
