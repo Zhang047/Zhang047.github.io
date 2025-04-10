@@ -40,11 +40,9 @@ jobs:
       
       - name: Commit changes
         run: |
-          go env -w GOPRIVATE="git.xxx.com"
-          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
-          #git config --global credential.helper cache
           git config --local user.email "2318134115@qq.com"
           git config --local user.name "Zhang047"
+          git config --global --add url."git@github.com:".insteadOf "https://github.com/"
           git add 666.txt
           git commit -m "Add changes" || exit 0
           git push --force
