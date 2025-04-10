@@ -23,9 +23,7 @@ jobs:
       # 使用到的actions包(用于克隆当前仓库的所有代码)
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: main
-          token: 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  # 自定义的个人推送TOKEN（自己生成的，有效期60天）
+       
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -42,4 +40,6 @@ jobs:
           git config --global --add url."git@github.com:".insteadOf "https://github.com/"
           git add 666.txt
           git commit -m "Add changes" || exit 0
-          git push 
+          #使用 GitHub Token 强制推送
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push --force
