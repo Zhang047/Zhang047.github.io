@@ -16,8 +16,10 @@ on:
 jobs:
   build:
     # 任务运行器（切换可参考文档）
-    runs-on: windows-latest 
-
+    runs-on: ubuntu-latest 
+    env:
+      PYTHONUTF8: 1  # 强制 Python 使用 UTF-8
+      LC_ALL: C.UTF-8
     # 步骤
     steps:
       # 使用到的actions包(用于克隆当前仓库的所有代码)
