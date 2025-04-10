@@ -1,5 +1,5 @@
 # 工作流名称
-name: article_spider
+name: VMESS_crawler
 # 事件：schedule 定时 | push 推送 | pull_request pr请求
 on:
   schedule:
@@ -9,10 +9,6 @@ on:
     - cron: '10 12 * * *' # 每日20:10，时间点执行任务，注意时区(UTC, 12+8)
     - cron: '10 14 * * *' # 每日22:10，时间点执行任务，注意时区(UTC, 14+8)
   
-
-
-  # 是否可在github操作选项卡手动运行
-  workflow_dispatch:
 
 # 定义任务
 jobs:
@@ -31,10 +27,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: execute py script
-        env:
-          FM_USERNAME: Zhang047
+          python-version: '3.10'
+      
         run: |
           get_and_copy_ssr_ss_vmess_ CJ.py
       
