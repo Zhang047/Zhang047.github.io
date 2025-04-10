@@ -9,6 +9,8 @@ import os  # 提供与操作系统交互的功能，如文件和目录操作
 import sys  # 提供对 Python 解释器的访问，允许与解释器进行交互
 import subprocess  # 允许生成子进程并与其交互
 import importlib  # 提供动态导入模块的功能
+import io
+
 
 def check_and_install(package):
     """检查并安装缺失的包"""
@@ -55,6 +57,13 @@ def set_pip_source():
         with open(pip_config_path, 'w') as f:
             f.write("[global]\n")
             f.write("index-url = https://pypi.tuna.tsinghua.edu.cn/simple\n")
+
+
+###解决系统编码问题
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+
 
 def print_info():
     # 打印美化后的信息
