@@ -234,5 +234,5 @@ for vmess_text in vmess_links:
 
     print(Fore.CYAN + "程序结束，按任意键退出...")
     print("文件已保存在脚本所在文件夹下")
-    input()  # 保持终端打开
+   
 
