@@ -4,8 +4,12 @@ name: article_spider
 on:
   schedule:
     # 分 时 日 月 星期 (*每次都 ,分割字段多值 -定义范围 /指定间隔频率)
-    - cron: '10 0 * * *' # 每日8:10，时间点执行任务，注意时区(UTC, 0+8)
-    - cron: '10 4 * * *' # 每日12:10，时间点执行任务，注意时区(UTC, 4+8)
+    - cron: '10 1 * * *' # 每日9:10，时间点执行任务，注意时区(UTC, 1+8)
+    - cron: '10 5 * * *' # 每日13:10，时间点执行任务，注意时区(UTC, 5+8)
+    - cron: '10 12 * * *' # 每日20:10，时间点执行任务，注意时区(UTC, 12+8)
+    - cron: '10 14 * * *' # 每日22:10，时间点执行任务，注意时区(UTC, 14+8)
+  
+
 
   # 是否可在github操作选项卡手动运行
   workflow_dispatch:
@@ -32,12 +36,12 @@ jobs:
         env:
           FM_USERNAME: Zhang047
         run: |
-          python get_and_copy_ssr_ss_vmess.py
+          get_and_copy_ssr_ss_vmess_ CJ.py
       
       - name: Commit changes
         run: |
           git config --local user.email "2318134115@qq.com"
           git config --local user.name "Zhang047"
-          git add .
-          git commit -m "Add changes" || echo "No changes to commit"
-          git push origin main
+          git add 666.txt
+          git commit -m "Add changes" || exit 0
+          git push --force
