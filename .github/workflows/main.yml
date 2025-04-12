@@ -46,7 +46,7 @@ jobs:
           git config --local user.name "Zhang047"
           git config --global --add url."git@github.com:".insteadOf "https://github.com/"
           git add 666.txt
-          git commit -m "Auto-update:Latest crawl results" || echo"No changes to commit"
+          git commit -m "Auto-update:Latest crawl results" || echo "No changes to commit"
           #使用 GitHub Token 强制推送
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push --force
