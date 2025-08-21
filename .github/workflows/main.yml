@@ -1,0 +1,52 @@
+# 工作流名称
+name: VMESS_crawler
+# 事件：schedule 定时 | push 推送 | pull_request pr请求
+on:
+  schedule:
+    # 分 时 日 月 星期 (*每次都 ,分割字段多值 -定义范围 /指定间隔频率)
+    - cron: '10 0 * * *' # 每日8:10，时间点执行任务，注意时区(UTC, 0+8)
+    - cron: '10 1 * * *' # 每日9:10，时间点执行任务，注意时区(UTC, 1+8)
+    - cron: '10 3 * * *' # 每日11:10，时间点执行任务，注意时区(UTC, 3+8)
+    - cron: '10 5 * * *' # 每日13:10，时间点执行任务，注意时区(UTC, 5+8)
+    - cron: '10 7 * * *' # 每日15:10，时间点执行任务，注意时区(UTC, 7+8)
+    - cron: '10 9 * * *' # 每日17:10，时间点执行任务，注意时区(UTC, 9+8)
+    - cron: '10 12 * * *' # 每日20:10，时间点执行任务，注意时区(UTC, 12+8)
+    - cron: '10 14 * * *' # 每日22:10，时间点执行任务，注意时区(UTC, 14+8)
+    - cron: '10 15 * * *' # 每日23:10，时间点执行任务，注意时区(UTC, 15+8)
+    
+  workflow_dispatch:     # 允许手动触发
+  
+
+# 定义任务
+jobs:
+  build:
+    # 任务运行器（切换可参考文档）
+    runs-on: ubuntu-latest 
+    env:
+      PYTHONUTF8: 1  # 强制 Python 使用 UTF-8
+      LC_ALL: C.UTF-8
+    # 步骤
+    steps:
+      # 使用到的actions包(用于克隆当前仓库的所有代码)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+       
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: 运行爬虫
+        run: |
+          python get_and_copy_ssr_ss_vmess_CJ.py
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "2318134115@qq.com"
+          git config --local user.name "Zhang047"
+          git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+          git add 666.txt
+          git commit -m "Auto-update:Latest crawl results" || echo "No changes to commit"
+          #使用 GitHub Token 强制推送
+        env:
+          GITHUB_TOKEN: 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
